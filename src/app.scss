@@ -1,0 +1,18 @@
+@import "~flexy-framework/flexy/reset";
+
+.b-app {
+  appearance: none;
+
+  &__title {
+    font-size: 2em;
+    font-weight: bold;
+  }
+}
+
+.b-foo {
+  font-weight: bold;
+}
+
+.b-bar {
+  font-weight: bold;
+}
