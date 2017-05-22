@@ -6,7 +6,7 @@ module.exports = [
     },
     {
         url: '/about',
-        target: '/test/about.html',
+        target: '/about.html',
         props: { foo: 'baz' }
     },
 ];

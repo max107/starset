@@ -13,6 +13,7 @@
     "compression-webpack-plugin": "^0.4.0",
     "object-assign": "^4.1.1",
     "promise": "^7.1.1",
+    "static-site-webpack-plugin": "^1.0.0",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {

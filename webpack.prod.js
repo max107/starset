@@ -7,10 +7,12 @@ let path = require('path'),
     ExtractTextPlugin = require("extract-text-webpack-plugin"),
     SiteGeneratorPlugin = require('static-site-webpack-plugin');
 
+const isProd = process.env.NODE_ENV !== 'production';
+
 function getEntrySources(sources) {
     sources.push(require.resolve('./polyfills'));
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (isProd) {
         sources.push('webpack-dev-server/client?http://localhost:8080');
         sources.push('webpack/hot/only-dev-server');
     }
@@ -20,7 +22,7 @@ function getEntrySources(sources) {
 
 let config = {
     target: 'web',
-    devtool: 'cheap-source-map',
+    devtool: process.env.NODE_ENv === 'development' ? 'eval' : 'cheap-source-map',
     context: path.join(__dirname, 'src'),
     entry: {
         app: getEntrySources(['./app.js'])
@@ -46,11 +48,10 @@ let config = {
         }),
         // new webpack.NoEmitOnErrorsPlugin(),
         new webpack.optimize.UglifyJsPlugin({
-            // test: /\.(js|jsx)$/,
-            sourceMap: true,
             compress: {
                 screw_ie8: true, // React doesn't support IE8
-                warnings: false
+                warnings: false,
+                drop_console: isProd
             },
             mangle: {
                 screw_ie8: true
