@@ -3,7 +3,7 @@
 let path = require('path'),
     webpack = require('webpack'),
     ExtractTextPlugin = require("extract-text-webpack-plugin"),
-    SiteGeneratorPlugin = require('./plugin/static-site'),
+    SiteGeneratorPlugin = require('static-site-webpack-plugin'),
     CompressionPlugin = require('compression-webpack-plugin');
 
 let config = {
@@ -23,7 +23,6 @@ let config = {
     },
     plugins: [
         new SiteGeneratorPlugin({
-            // todo for what this needed?
             entry: 'app.bundle.js',
             urls: require('./urls.js'),
         }),

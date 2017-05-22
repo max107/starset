@@ -5,7 +5,7 @@ let path = require('path'),
     WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin'),
     CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin'),
     ExtractTextPlugin = require("extract-text-webpack-plugin"),
-    SiteGeneratorPlugin = require('./plugin/static-site');
+    SiteGeneratorPlugin = require('static-site-webpack-plugin');
 
 function getEntrySources(sources) {
     sources.push(require.resolve('./polyfills'));
@@ -32,10 +32,7 @@ let config = {
     },
     plugins: [
         new SiteGeneratorPlugin({
-            // todo for what this needed?
             entry: 'app.bundle.js',
-
-            routes: path.join(__dirname, 'src/routes.js'),
             urls: path.join(__dirname, 'urls.js')
         }),
         new webpack.ContextReplacementPlugin(
