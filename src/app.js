@@ -26,13 +26,13 @@ export default ({ url, props, assets }) => {
             ${helmet.title.toString()}
             ${helmet.meta.toString()}
             ${helmet.link.toString()}
-            <link rel="manifest" href="/starset/manifest.json">
+            <link rel="manifest" href="/manifest.json">
         </head>
         <body ${helmet.bodyAttributes.toString()}>
-            <link crossorigin="anonymous" href="/starset/app.bundle.css" media="all" rel="stylesheet" />
+            <link crossorigin="anonymous" href="/app.bundle.css" media="all" rel="stylesheet" />
             <noscript>You need to enable JavaScript to run this app.</noscript>
             <div id="${target}">${body}</div>
-            <script type="text/javascript" src="/starset/${assets.app}"></script>
+            <script type="text/javascript" src="/${assets.app}"></script>
             ${helmet.script.toString()}
         </body>
     </html>`;
