@@ -1,0 +1,18 @@
+.b-menu {
+  padding: 1em 0;
+  box-sizing: border-box;
+
+  &__link {
+    text-decoration: none;
+    @include antialias;
+    margin-right: 1em;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+}

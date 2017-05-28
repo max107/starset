@@ -1,0 +1,11 @@
+.b-body {
+  background: {
+    color: #f4f4f4;
+  }
+}
+
+#root, .b-body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}

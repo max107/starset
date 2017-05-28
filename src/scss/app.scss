@@ -1,20 +1,8 @@
 @import "settings";
 @import "~flexy-framework/flexy/flexy";
 @import "~flexy-framework/flexy/theme/default";
-
-.b-app {
-  appearance: none;
-
-  &__title {
-    font-size: 2em;
-    font-weight: bold;
-  }
-}
-
-.b-foo {
-  font-weight: bold;
-}
-
-.b-bar {
-  font-weight: bold;
-}
+@import "block/logo";
+@import "block/menu";
+@import "block/header";
+@import "block/body";
+@import "block/site";
