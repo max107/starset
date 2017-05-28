@@ -5,12 +5,14 @@ node_js:
 
 before_script:
   - yarn install
+  - yarn build
 
-script: yarn build
+script: yarn test
 
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
+  local_dir: build
   on:
     branch: master
