@@ -3935,9 +3935,9 @@ react-dom@^15.5.4:
     object-assign "^4.1.0"
     prop-types "~15.5.7"
 
-react-easy-router@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/react-easy-router/-/react-easy-router-3.0.0.tgz#a37e54b2ef3c8f2b7357bc5b87d7c1bf5d212043"
+react-easy-router@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/react-easy-router/-/react-easy-router-3.0.2.tgz#b6c7d4b5b612f9bb776639b79750b42f8db11664"
   dependencies:
     history "^4.6.1"
     query-string ">=3.0.0"

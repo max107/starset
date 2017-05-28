@@ -2,7 +2,7 @@ import './configure';
 
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Store, routerRender } from 'react-easy-router';
+import { Router, routerRender } from 'react-easy-router';
 import routes from './routes';
 import createBrowserHistory from 'history/createBrowserHistory';
 import { Helmet } from "react-helmet";
@@ -19,9 +19,6 @@ if (typeof document !== 'undefined') {
 }
 
 export default ({ url, props, assets }) => {
-    // TODO fix me
-    Store.set(routes);
-
     const renderServerMarkup = (body, helmet, target = 'root') => {
         // <body ${helmet.bodyAttributes.toString()}>
         return `<!doctype html>
