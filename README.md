@@ -1,5 +1,11 @@
 # Экспериментальная версия сборки статических сайтов с react, react-easy-router, webpack 2
 
+[![Build Status](https://travis-ci.org/max107/starset.svg?branch=master)](https://travis-ci.org/max107/starset)
+
+[Пример](http://starset.studio107.ru) с доступными страницами /index.html и /about.html (см ниже)
+
+---
+
 Подходит для:
 Создания "лендингов" или "посадочных страниц", где в качестве backend выступает CRM, к примеру. Для небольших личных блогов и так далее.
 
