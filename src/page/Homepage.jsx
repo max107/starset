@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
 import { Helmet } from "react-helmet";
-// import './Homepage.scss';
-import cls from './test.css';
 
 export default class Homepage extends Component {
+    state = {
+        qty: 1
+    };
+
+    handleClick = e => {
+        e.preventDefault();
+        this.setState({
+            qty: this.state.qty + 1
+        });
+    };
+
     render() {
+        const { qty } = this.state;
+
         return (
             <div>
                 <Helmet>
@@ -13,7 +24,8 @@ export default class Homepage extends Component {
                     <link rel="canonical" href="http://mysite.com/example"/>
                 </Helmet>
 
-                <div className="b-world">Hello world</div>
+                <div className="b-world b-button"
+                onClick={this.handleClick}>Hello homepage: {qty}</div>
             </div>
         );
     }

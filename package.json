@@ -4,16 +4,19 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --inline --hot --config=./scripts/webpack.prod.js",
+    "start": "NODE_ENV=development webpack-dev-server --config=./webpack.dev.js",
     "build": "NODE_ENV=production webpack --config=./webpack.prod.js",
-    "build:static": "NODE_ENV=production webpack --config=./webpack.static.js",
     "test": "NODE_ENV=development mocha test/*.test.js --compilers js:babel-core/register"
   },
   "dependencies": {
     "compression-webpack-plugin": "^0.4.0",
+    "html-webpack-plugin": "^2.28.0",
     "object-assign": "^4.1.1",
     "promise": "^7.1.1",
+    "react-easy-router": "^3.0.0",
+    "react-error-overlay": "^1.0.7",
     "static-site-webpack-plugin": "^1.0.0",
+    "webpack-manifest-plugin": "^1.1.0",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
@@ -23,7 +26,8 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-react-app": "^3.0.0",
     "case-sensitive-paths-webpack-plugin": "^2.0.0",
-    "chai": "^3.5.0",
+    "chai": "^4.0.0",
+    "cross-env": "^5.0.0",
     "css-loader": "^0.28.1",
     "expect.js": "^0.3.1",
     "extract-text-webpack-plugin": "^2.1.0",
@@ -32,16 +36,15 @@
     "mocha": "^3.4.1",
     "moment": "^2.18.1",
     "node-sass": "^4.5.2",
+    "npm-run-all": "^4.0.2",
     "postcss-csso": "^2.0.0",
     "postcss-loader": "^2.0.5",
     "react": "^15.5.4",
-    "react-dev-utils": "^1.0.2",
+    "react-dev-utils": "^3.0.0",
     "react-dom": "^15.5.4",
     "react-helmet": "^5.0.3",
-    "route-parser": "^0.0.5",
     "sass-loader": "^6.0.5",
-    "style-loader": "^0.17.0",
-    "urljoin": "^0.1.5",
+    "style-loader": "^0.18.1",
     "webpack": "^2.5.1",
     "webpack-dev-server": "^2.4.5"
   }

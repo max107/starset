@@ -2,7 +2,9 @@ module.exports = [
     {
         url: '/',
         target: 'index.html',
-        props: { foo: 'bar' }
+        props: {
+            foo: 'bar'
+        }
     },
     {
         url: '/about',

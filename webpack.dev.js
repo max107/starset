@@ -2,17 +2,35 @@
 
 let path = require('path'),
     webpack = require('webpack'),
-    ExtractTextPlugin = require("extract-text-webpack-plugin"),
-    SiteGeneratorPlugin = require('static-site-webpack-plugin'),
-    ManifestPlugin = require('webpack-manifest-plugin'),
-    CompressionPlugin = require('compression-webpack-plugin');
+    WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin'),
+    errorOverlayMiddleware = require('react-error-overlay/middleware'),
+    CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin'),
+    HtmlWebpackPlugin = require('html-webpack-plugin'),
+    ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 let config = {
     target: 'web',
     devtool: 'cheap-source-map',
     context: path.join(__dirname, 'src'),
     entry: {
-        app: './app.js'
+        app: [
+            // Include an alternative client for WebpackDevServer. A client's job is to
+            // connect to WebpackDevServer by a socket and get notified about changes.
+            // When you save a file, the client will either apply hot updates (in case
+            // of CSS changes), or refresh the page (in case of JS changes). When you
+            // make a syntax error, this client will display a syntax error overlay.
+            // Note: instead of the default WebpackDevServer client, we use a custom one
+            // to bring better experience for Create React App users. You can replace
+            // the line below with these two lines if you prefer the stock client:
+            // require.resolve('webpack-dev-server/client') + '?/',
+            // require.resolve('webpack/hot/dev-server'),
+            require.resolve('react-dev-utils/webpackHotDevClient'),
+            // We ship a few polyfills by default:
+            require.resolve('./polyfills'),
+            // Errors should be considered fatal in development
+            require.resolve('react-error-overlay'),
+            './app.js'
+        ]
     },
     output: {
         path: path.join(__dirname, 'build'),
@@ -22,56 +40,53 @@ let config = {
         pathinfo: true,
     },
     plugins: [
-        new ExtractTextPlugin({
-            filename: 'app.bundle.css',
-            allChunks: true
-        }),
-        new SiteGeneratorPlugin({
-            entry: 'app.bundle.js',
-            urls: require('./urls.js'),
-        }),
         // Moment.js is an extremely popular library that bundles large locale files
         // by default due to how Webpack interprets its code. This is a practical
         // solution that requires the user to opt into importing specific locales.
         // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
         // You can remove this if you don't use Moment.js:
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+        // This is necessary to emit hot updates (currently CSS only):
+        new webpack.HotModuleReplacementPlugin(),
+        // Generates an `index.html` file with the <script> injected.
+        new HtmlWebpackPlugin({
+            inject: true,
+            template: path.join(__dirname, './public/index.html'),
+        }),
         new webpack.NamedModulesPlugin(),
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        new ExtractTextPlugin({
+            filename: 'app.bundle.css',
+            allChunks: true
         }),
-        // Generate a manifest file which contains a mapping of all asset filenames
-        // to their corresponding output file so that tools can pick it up without
-        // having to parse `index.html`.
-        new ManifestPlugin({
-            fileName: 'asset-manifest.json',
-        }),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                screw_ie8: true, // React doesn't support IE8
-                warnings: false,
-                // This feature has been reported as buggy a few times, such as:
-                // https://github.com/mishoo/UglifyJS2/issues/1964
-                // We'll wait with enabling it by default until it is more solid.
-                reduce_vars: false,
-            },
-            mangle: {
-                screw_ie8: true
-            },
-            output: {
-                comments: false,
-                screw_ie8: true
-            }
-        }),
-        new CompressionPlugin({
-            asset: '[path].gz[query]',
-            algorithm: 'gzip',
-            test: /\.js$/,
-            threshold: 0,
-            minRatio: 999
-        }),
+        new CaseSensitivePathsPlugin,
+        new WatchMissingNodeModulesPlugin(path.join(__dirname, 'node_modules')),
     ],
+    devServer: {
+        hot: true,
+        inline: true,
+        contentBase: path.join(__dirname, 'build'),
+        // By default files from `contentBase` will not trigger a page reload.
+        watchContentBase: true,
+        // WebpackDevServer is noisy by default so we emit custom message instead
+        // by listening to the compiler events with `compiler.plugin` calls above.
+        quiet: true,
+        // Reportedly, this avoids CPU overload on some systems.
+        // https://github.com/facebookincubator/create-react-app/issues/293
+        watchOptions: {
+            ignored: /node_modules/,
+        },
+        historyApiFallback: {
+            // Paths with dots should still use the history fallback.
+            // See https://github.com/facebookincubator/create-react-app/issues/387.
+            disableDotRule: true,
+        },
+        setup(app) {
+            // This lets us open files from the runtime error overlay.
+            app.use(errorOverlayMiddleware());
+        },
+    },
     module: {
+        strictExportPresence: true,
         rules: [
             {
                 test: /\.(js|jsx)$/,
